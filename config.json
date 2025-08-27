@@ -1,0 +1,28 @@
+{
+    "robots": [
+        {
+            "id": 102,
+            "control-mode": "normal",
+            "status": "iddle",
+            "x": 200,
+            "y": 200,
+            "z": 200
+        },
+        {
+            "id": 224,
+            "control-mode": "normal",
+            "status": "iddle",
+            "x": 200,
+            "y": 200,
+            "z": 200
+        },
+        {
+            "id": 520,
+            "control-mode": "normal",
+            "status": "iddle",
+            "x": 200,
+            "y": 200,
+            "z": 200
+        }
+    ]
+}
