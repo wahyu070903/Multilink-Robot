@@ -10,6 +10,7 @@ import random
 import threading
 import json
 from Models.adapter import NetworkAdapterModel
+from Models.TableModel import RobotTableModel
 
 class SwarmSimulation(QGraphicsView):
     def __init__(self, num_robots=10, width=600, height=400):
@@ -44,48 +45,6 @@ class SwarmSimulation(QGraphicsView):
             new_y = min(max(robot.y() + dy, 0), self.height)
             robot.setPos(new_x, new_y)
 
-
-class RobotNodeTable():
-    def __init__(self, window, datas):
-        super().__init__()
-        window.ui.NodeTable.setColumnCount(6)
-        window.ui.NodeTable.setRowCount(5)
-
-        window.ui.NodeTable.setHorizontalHeaderLabels([
-            "ID",
-            "Control Mode",
-            "State",
-            "Target Relative X [m]",
-            "Target Relative Y [m]",
-            "Target Relative Z [m]",
-        ])
-        
-        table_data = []
-        
-        for data in datas:
-            data_construct = data
-            data_construct["x"] = 200   
-            data_construct["y"] = 200
-            data_construct["z"] = 200  
-            table_data.append(data_construct)
-        
-        for row, item in enumerate(table_data):
-            window.ui.NodeTable.setItem(row, 0, QTableWidgetItem(str(item["id"])))
-            window.ui.NodeTable.setItem(row, 1, QTableWidgetItem(item["control-mode"]))
-            window.ui.NodeTable.setItem(row, 2, QTableWidgetItem(item["status"]))
-            window.ui.NodeTable.setItem(row, 3, QTableWidgetItem(str(item["x"])))
-            window.ui.NodeTable.setItem(row, 4, QTableWidgetItem(str(item["y"])))
-            window.ui.NodeTable.setItem(row, 5, QTableWidgetItem(str(item["z"])))
-        
-        layout = QVBoxLayout()
-        layout.addWidget(window.ui.NodeTable)
-        window.setLayout(layout)
-
-    def update_tableData(self, data):
-        self.config_data.robots = data
-        # Update the UI table with the new data
-        RobotNodeTable(self, self.config_data.robots)
-
 class window(QtWidgets.QMainWindow):
     def __init__(self):
         super(window, self) .__init__()
@@ -94,7 +53,10 @@ class window(QtWidgets.QMainWindow):
         
         self.config_data = configAdapter()
 
-        RobotNodeTable(self, self.config_data.robots)
+        # construct data table and initialize   
+        self.robot_table = RobotTableModel(self)
+        # self.robot_table.changeAllValue(self.config_data.robots)
+
         self.sim = SwarmSimulation()
         self.ui.SwarmView.setScene(self.sim.scene)
 
@@ -102,7 +64,8 @@ class window(QtWidgets.QMainWindow):
 
         self.net_thread = NetworkAdapterModel()
 
-        self.net_thread.signal_clientData.connect(self.update_tableData)
+        self.net_thread.signal_clientData.connect(self.robot_table.changeSubscriberValue)
+        self.net_thread.signal_subscriber.connect(self.robot_table.listAllSubscriber)
 
         thread = threading.Thread(target=self.net_thread.run, daemon=True)
         thread.start()

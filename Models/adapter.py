@@ -5,22 +5,15 @@ import time
 from dataclasses import dataclass
 from PyQt5.QtCore import QObject, pyqtSignal
 
-@dataclass
-class ClientData():
-    addr: str
-    data: object
-    timestamp: float
-
 class NetworkAdapterModel(QObject):
-    signal_clientData = pyqtSignal(ClientData)
-    signal_subscriber = pyqtSignal(dict)
+    signal_clientData = pyqtSignal(list)
+    signal_subscriber = pyqtSignal(str)
 
-    def __init__(self, host="192.168.1.4", port=5000):
+    def __init__(self, host="127.0.0.1", port=5000):
         super().__init__()
         self.host = host
         self.port = port
         self.running = True
-        self.subscriber = []
         self.client_dataline = []
     
     def run(self):
@@ -37,39 +30,36 @@ class NetworkAdapterModel(QObject):
             thread.start()
 
     def handle_client(self, conn, addr):
-        self.subscriber.append(conn)
-        self.signal_subscriber.emit(self.subscriber)
         buffer = ""
+        client_id = None
+
         while True:
-            data = conn.recv(1024).decode()
+            data = conn.recv(1024).decode("utf-8")
             if not data:
                 break
+
             buffer += data
             while "\n" in buffer:
                 line, buffer = buffer.split("\n", 1)
+
+                if client_id is None:
+                    client_id = line.strip()
+                    self.signal_subscriber.emit(client_id)
+                    continue
+
                 try:
                     msg = json.loads(line)
+                    self.signal_clientData.emit([msg])
 
-                    dataline = ClientData(
-                        addr=str(addr),
-                        data=msg,
-                        timestamp=time.time()
-                    )
-
-                    self.signal_clientData.emit(dataline)
-
-                    print("hello")
-                    
                     reply = {
-                                "status" : 200,
-                                "message" : "success"
-                            }
-                    
-                    reply_msg = json.dumps(reply) + "\n"
-                    conn.sendall(reply_msg.encode())
+                        "status": 200,
+                        "message": "success"
+                    }
+                    conn.sendall((json.dumps(reply) + "\n").encode("utf-8"))
 
                 except json.JSONDecodeError:
                     print("Invalid JSON:", line)
 
         conn.close()
-        self.subscriber.remove(conn)
+
+
