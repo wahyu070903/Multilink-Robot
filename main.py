@@ -1,6 +1,6 @@
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QGraphicsView, QGraphicsScene, QGraphicsEllipseItem
-from PyQt5.QtWidgets import QVBoxLayout
+from PyQt5.QtWidgets import QVBoxLayout, QPushButton, QFrame
 from PyQt5.QtCore import QTimer, QRectF, Qt
 from PyQt5.QtGui import QBrush
 from mainScreen import Ui_MainWindow
@@ -11,6 +11,8 @@ import threading
 import json
 from Models.adapter import NetworkAdapterModel
 from Models.TableModel import RobotTableModel
+from Models.RobotNodeModel import RobotNodeModel
+from Models.SubscriberModel import SubscriberModel
 
 class SwarmSimulation(QGraphicsView):
     def __init__(self, num_robots=10, width=600, height=400):
@@ -52,10 +54,14 @@ class window(QtWidgets.QMainWindow):
         self.ui.setupUi(self)
         
         self.config_data = configAdapter()
+        self.subscriber_model = SubscriberModel()
 
         # construct data table and initialize   
         self.robot_table = RobotTableModel(self)
         # self.robot_table.changeAllValue(self.config_data.robots)
+        
+        self.robot_node = RobotNodeModel(self)
+        self.robot_node.renderNodes(self.config_data.robots)
 
         self.sim = SwarmSimulation()
         self.ui.SwarmView.setScene(self.sim.scene)
@@ -64,8 +70,9 @@ class window(QtWidgets.QMainWindow):
 
         self.net_thread = NetworkAdapterModel()
 
-        self.net_thread.signal_clientData.connect(self.robot_table.changeSubscriberValue)
-        self.net_thread.signal_subscriber.connect(self.robot_table.listAllSubscriber)
+        self.net_thread.signal_subscriber.connect(self.subscriber_model.ListAllSubscriber)
+        self.net_thread.signal_clientData.connect(self.subscriber_model.UpdateSubscriberValues)
+        self.net_thread.signal_clientDisconnected.connect(self.subscriber_model.HandleCLientDisconnection)
 
         thread = threading.Thread(target=self.net_thread.run, daemon=True)
         thread.start()

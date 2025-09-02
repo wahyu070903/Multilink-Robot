@@ -33,7 +33,7 @@
      <bool>true</bool>
     </attribute>
     <attribute name="verticalHeaderVisible">
-     <bool>false</bool>
+     <bool>true</bool>
     </attribute>
     <attribute name="verticalHeaderHighlightSections">
      <bool>false</bool>
@@ -61,6 +61,17 @@
     <property name="text">
      <string>Add Slave</string>
     </property>
+   </widget>
+   <widget class="QWidget" name="gridLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>619</x>
+      <y>19</y>
+      <width>571</width>
+      <height>371</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout"/>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

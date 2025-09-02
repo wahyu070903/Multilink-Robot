@@ -25,7 +25,7 @@ class Ui_MainWindow(object):
         self.NodeTable.horizontalHeader().setCascadingSectionResizes(True)
         self.NodeTable.horizontalHeader().setMinimumSectionSize(42)
         self.NodeTable.horizontalHeader().setStretchLastSection(True)
-        self.NodeTable.verticalHeader().setVisible(False)
+        self.NodeTable.verticalHeader().setVisible(True)
         self.NodeTable.verticalHeader().setHighlightSections(False)
         self.SwarmView = QtWidgets.QGraphicsView(self.centralwidget)
         self.SwarmView.setGeometry(QtCore.QRect(40, 20, 521, 371))
@@ -33,6 +33,12 @@ class Ui_MainWindow(object):
         self.AddNodeButton = QtWidgets.QPushButton(self.centralwidget)
         self.AddNodeButton.setGeometry(QtCore.QRect(500, 410, 61, 31))
         self.AddNodeButton.setObjectName("AddNodeButton")
+        self.gridLayoutWidget = QtWidgets.QWidget(self.centralwidget)
+        self.gridLayoutWidget.setGeometry(QtCore.QRect(619, 19, 571, 371))
+        self.gridLayoutWidget.setObjectName("gridLayoutWidget")
+        self.gridLayout = QtWidgets.QGridLayout(self.gridLayoutWidget)
+        self.gridLayout.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout.setObjectName("gridLayout")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1217, 21))
@@ -49,3 +55,13 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.AddNodeButton.setText(_translate("MainWindow", "Add Slave"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())
