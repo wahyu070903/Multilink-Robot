@@ -1,8 +1,12 @@
+import time
+from PyQt5.QtCore import QObject, pyqtSignal
 
-
-class SubscriberModel:
+class SubscriberModel(QObject):
+    signal_updateping = pyqtSignal()
     def __init__(self):
+        super().__init__()
         self.subscriber = []
+        self.last_update = None
 
     def IsSubscriberExist(self, subscriber_id):
         return any(item["id"] == subscriber_id for item in self.subscriber)
@@ -52,7 +56,6 @@ class SubscriberModel:
         target_id = _new_data[0].get("id", None)
         for container in self.subscriber:
             if int(container["id"]) == target_id:
-                print(container)
                 container["data"]["control-mode"] = data["control-mode"]
                 container["data"]["status"] = data["status"]
                 
@@ -79,7 +82,7 @@ class SubscriberModel:
                 imu_data_deriv["pitch"] = data["imu"]["derived"]["pitch"]
                 imu_data_deriv["roll"] = data["imu"]["derived"]["roll"]
 
-                self.renderData()
+                self.signal_updateping.emit()
                 return True
 
         print("[Error] Target ID not found:", target_id)
@@ -90,7 +93,10 @@ class SubscriberModel:
         for item in self.subscriber:
             if item["id"] == subscriber:
                 self.subscriber.remove(item)
-                self.renderData()
+                self.signal_updateping.emit()
                 return True 
         
         return False 
+
+    def GetSubscribers(self):
+        return self.subscriber

@@ -9,10 +9,10 @@ import sys
 import random
 import threading
 import json
-from Models.adapter import NetworkAdapterModel
-from Models.TableModel import RobotTableModel
-from Models.RobotNodeModel import RobotNodeModel
-from Models.SubscriberModel import SubscriberModel
+from Models.AdapterModel import NetworkAdapterModel
+# from Models.TableModel import RobotTableModel
+# from Models.RobotNodeModel import RobotNodeModel
+# from Models.SubscriberModel import SubscriberModel
 
 class SwarmSimulation(QGraphicsView):
     def __init__(self, num_robots=10, width=600, height=400):
@@ -54,14 +54,13 @@ class window(QtWidgets.QMainWindow):
         self.ui.setupUi(self)
         
         self.config_data = configAdapter()
-        self.subscriber_model = SubscriberModel()
+        # self.subscriber_model = SubscriberModel()
 
         # construct data table and initialize   
-        self.robot_table = RobotTableModel(self)
+        # self.robot_table = RobotTableModel(self, self.subscriber_model)
         # self.robot_table.changeAllValue(self.config_data.robots)
         
-        self.robot_node = RobotNodeModel(self)
-        self.robot_node.renderNodes(self.config_data.robots)
+        # self.robot_node = RobotNodeModel(self, self.subscriber_model)
 
         self.sim = SwarmSimulation()
         self.ui.SwarmView.setScene(self.sim.scene)
@@ -70,9 +69,12 @@ class window(QtWidgets.QMainWindow):
 
         self.net_thread = NetworkAdapterModel()
 
-        self.net_thread.signal_subscriber.connect(self.subscriber_model.ListAllSubscriber)
-        self.net_thread.signal_clientData.connect(self.subscriber_model.UpdateSubscriberValues)
-        self.net_thread.signal_clientDisconnected.connect(self.subscriber_model.HandleCLientDisconnection)
+        # self.net_thread.signal_subscriber.connect(self.subscriber_model.ListAllSubscriber)
+        # self.net_thread.signal_clientData.connect(self.subscriber_model.UpdateSubscriberValues)
+        # self.net_thread.signal_clientDisconnected.connect(self.subscriber_model.HandleCLientDisconnection)
+
+        # self.subscriber_model.signal_updateping.connect(self.robot_table.UpdateData)
+        # self.subscriber_model.signal_updateping.connect(self.robot_node.UpdateData)
 
         thread = threading.Thread(target=self.net_thread.run, daemon=True)
         thread.start()
