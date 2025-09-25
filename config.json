@@ -23,6 +23,56 @@
             "ax": 200,
             "ay": 200,
             "az": 200
+        },
+        {
+            "id": 69,
+            "control-mode": "auto",
+            "status": "active"
+        },
+        {
+            "id": 69,
+            "control-mode": "auto",
+            "status": "active"
+        },
+        {
+            "id": 69,
+            "control-mode": "auto",
+            "status": "active"
+        },
+        {
+            "id": 69,
+            "control-mode": "auto",
+            "status": "active"
+        },
+        {
+            "id": 69,
+            "control-mode": "auto",
+            "status": "active"
+        },
+        {
+            "id": 69,
+            "control-mode": "auto",
+            "status": "active"
+        },
+        {
+            "id": 69,
+            "control-mode": "auto",
+            "status": "active"
+        },
+        {
+            "id": 69,
+            "control-mode": "auto",
+            "status": "active"
+        },
+        {
+            "id": 69,
+            "control-mode": "auto",
+            "status": "active"
+        },
+        {
+            "id": 69,
+            "control-mode": "auto",
+            "status": "active"
         }
     ]
 }

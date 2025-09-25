@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "signature": "test",
+        "token": "30f67c3732b5612bb813d9702e912df53cae45ba77bf2a4d20187a6473f3ff8e",
+        "status": 0
+    },
+    {
+        "id": 2,
+        "signature": "hello world",
+        "token": "",
+        "status": 0
+    },
+    {
+        "id": 3,
+        "signature": "damn",
+        "token": "",
+        "status": 0
+    },
+    {
+        "id": 4,
+        "signature": "I love tomboys",
+        "token": "87d1adcb98c9b81e4c08aa6138ef81a66d4bbafb05e489ee66e7d2d6042a4031",
+        "status": 0
+    }
+]
