@@ -13,6 +13,7 @@ class Subscriber(QObject):
     def __init__(self):
         super().__init__()
         self.clients = {}
+        self.ResetClientsStatusOnInit()
     
     def CheckExistence(self, _id = None, _socket = None):
         if _id is not None and _id in self.clients:
@@ -94,6 +95,18 @@ class Subscriber(QObject):
         return None
 
     def GetClientData(self, _id):
+        pass
+    
+    def ResetClientsStatusOnInit(self):
+        with open("clients.json", "r") as db:
+            users  = json.load(db);
+        for user in users:
+            if user["status"] == 1:
+                user["status"] = 0
+        with open("clients.json", 'w') as db:
+            json.dump(users, db, indent=4)
+
+    def SendToAll(self):
         pass
             
 class NetworkAdapterModel():

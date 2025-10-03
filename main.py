@@ -9,10 +9,15 @@ import sys
 import random
 import threading
 import json
+import pyqtgraph as pg
+import pyqtgraph.opengl as gl
+import numpy as np
+from pyqtgraph.opengl import MeshData
 from datetime import datetime
 from Models.AdapterModel import NetworkAdapterModel
 from Models.TableModel import RobotTableModel
 from Models.ClientModel import ClientModel
+from Models.ProgramModel import ProgramModel
 # from Models.RobotNodeModel import RobotNodeModel
 # from Models.SubscriberModel import SubscriberModel
 
@@ -48,6 +53,72 @@ class SwarmSimulation(QGraphicsView):
             new_x = min(max(robot.x() + dx, 0), self.width)
             new_y = min(max(robot.y() + dy, 0), self.height)
             robot.setPos(new_x, new_y)
+
+
+class SwarmPlotter(QObject):
+    def __init__(self, _ui: QGraphicsView):
+        self.widget = _ui.SwarmWidget  
+        layout = QVBoxLayout(self.widget)
+        self.widget.setLayout(layout)
+        self.gl = gl.GLViewWidget()
+        self.gl.setWindowTitle("3D Cartesian Plotter")
+        self.gl.setCameraPosition(distance=20)
+
+        layout.addWidget(self.gl)
+        gx = gl.GLGridItem()
+        gx.setSize(x=40, y=40) 
+        for g in [gx]:
+            g.scale(1, 1, 1)
+            self.gl.addItem(g)
+
+        self.create_robot(0, 0)
+
+    def create_robot_faces(self, num_bottom, num_top):
+        faces = []
+        for i in range(1, num_bottom-1):
+            faces.append([0, i, i+1])
+        for i in range(num_top-1):
+            faces.append([num_bottom, num_bottom + i + 1, num_bottom + i])
+        for i in range(num_bottom):
+            next_i = (i + 1) % num_bottom
+            bottom_i = i
+            bottom_next = next_i
+            top_i = i + num_bottom
+            top_next = next_i + num_bottom
+            faces.append([bottom_i, bottom_next, top_next])
+            faces.append([bottom_i, top_next, top_i])
+
+        return np.array(faces)
+
+    def create_robot(self, center_x, center_y):
+        width = 1
+        height = 2
+        verts = np.array([
+            # bottom (z=0)
+            [center_x - width/2, center_y - height/2, 0],
+            [center_x + width/2, center_y - height/2, 0],
+            [center_x + width/2, center_y + height/4, 0],
+            [center_x, center_y + height/2, 0],
+            [center_x - width/2, center_y + height/4, 0],
+
+            # top (z=1)
+            [center_x - width/2, center_y - height/2, 1],
+            [center_x + width/2, center_y - height/2, 1],
+            [center_x + width/2, center_y + height/4, 1],
+            [center_x, center_y + height/2, 1],
+            [center_x - width/2, center_y + height/4, 1],
+        ])
+
+        faces = self.create_robot_faces(5, 5)
+
+        md_body = MeshData(vertexes=verts, faces=faces)
+        body = gl.GLMeshItem(meshdata=md_body, smooth=False, color = (0.941, 0.263, 0.353, 1), shader='shaded', drawEdges=False)
+        body.scale(2, 1, 0.5) 
+        body.translate(0, 0, 0.25)
+        self.gl.addItem(body)
+
+
+
 
 class TerminalLogger(QObject):
     log_signal = pyqtSignal(str, str)  # (message, color)
@@ -85,11 +156,12 @@ class window(QtWidgets.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         
+        # self.sim = SwarmSimulation()
+        # self.ui.SwarmView.setScene(self.sim.scene)
 
-        self.sim = SwarmSimulation()
-        self.ui.SwarmView.setScene(self.sim.scene)
-
+        self.swarm = SwarmPlotter(self.ui)
         self.logger = TerminalLogger(self.ui.TerminalDisplay, max_lines=100)
+        self.programModel = ProgramModel(self.ui)
         
         self.clientModel = ClientModel()
 
@@ -97,6 +169,8 @@ class window(QtWidgets.QMainWindow):
         self.ui.DelNodeButton.clicked.connect(lambda: self.clientModel.DeleteClient())
         self.ui.InspectButton.clicked.connect(lambda: self.clientModel.InspectClient(self.net_thread))
         self.ui.AccessButton.clicked.connect(lambda: self.clientModel.TakeoverClient(self.net_thread))
+
+        self.ui.programLoad.clicked.connect(lambda: self.programModel.OpenFileDialog())
 
         self.net_thread = NetworkAdapterModel(self)
         self.robot_table = RobotTableModel(self)
