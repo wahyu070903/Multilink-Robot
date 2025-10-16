@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MapGenerator</class>
+ <widget class="QWidget" name="MapGenerator">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>561</width>
+    <height>456</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Map Maker</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../icons/map.png</normaloff>../icons/map.png</iconset>
+  </property>
+  <widget class="QPushButton" name="drawBtn">
+   <property name="geometry">
+    <rect>
+     <x>454</x>
+     <y>10</y>
+     <width>81</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Draw</string>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>../icons/marker.png</normaloff>../icons/marker.png</iconset>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="EraseBtn">
+   <property name="geometry">
+    <rect>
+     <x>454</x>
+     <y>90</y>
+     <width>81</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Erase</string>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>../icons/eraser.png</normaloff>../icons/eraser.png</iconset>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="ClearBtn">
+   <property name="geometry">
+    <rect>
+     <x>454</x>
+     <y>130</y>
+     <width>81</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Erase All</string>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>../icons/broom.png</normaloff>../icons/broom.png</iconset>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="saveBtn">
+   <property name="geometry">
+    <rect>
+     <x>454</x>
+     <y>362</y>
+     <width>81</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Save</string>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>../icons/save.png</normaloff>../icons/save.png</iconset>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="cancelBtn">
+   <property name="geometry">
+    <rect>
+     <x>454</x>
+     <y>400</y>
+     <width>81</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Cancel</string>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>../icons/cross-mark.png</normaloff>../icons/cross-mark.png</iconset>
+   </property>
+  </widget>
+  <widget class="QWidget" name="drawArea" native="true">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>9</y>
+     <width>420</width>
+     <height>420</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="addLandmarkBtn">
+   <property name="geometry">
+    <rect>
+     <x>454</x>
+     <y>50</y>
+     <width>81</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Landmark</string>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>../icons/destination.png</normaloff>../icons/destination.png</iconset>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="OptionBtn">
+   <property name="geometry">
+    <rect>
+     <x>454</x>
+     <y>170</y>
+     <width>81</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Option</string>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>../icons/cogwheel.png</normaloff>../icons/cogwheel.png</iconset>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -15,14 +15,14 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>1400</width>
-    <height>800</height>
+    <width>0</width>
+    <height>0</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>1400</width>
-    <height>800</height>
+    <width>16777215</width>
+    <height>16777215</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -71,7 +71,7 @@
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>icons/green-plus.svg</normaloff>icons/green-plus.svg</iconset>
+      <normaloff>../icons/plus-solid-full.svg</normaloff>../icons/plus-solid-full.svg</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="AccessButton">
@@ -88,7 +88,7 @@
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>icons/remote-control.png</normaloff>icons/remote-control.png</iconset>
+      <normaloff>../icons/remote-control.png</normaloff>../icons/remote-control.png</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="DelNodeButton">
@@ -105,7 +105,13 @@
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>icons/red-x.png</normaloff>icons/red-x.png</iconset>
+      <normaloff>../icons/close.png</normaloff>../icons/close.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>12</width>
+      <height>12</height>
+     </size>
     </property>
    </widget>
    <widget class="QPushButton" name="InspectButton">
@@ -122,7 +128,7 @@
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>icons/show.png</normaloff>icons/show.png</iconset>
+      <normaloff>../icons/show.png</normaloff>../icons/show.png</iconset>
     </property>
    </widget>
    <widget class="QTextEdit" name="TerminalDisplay">
@@ -162,7 +168,7 @@
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>icons/download-folder.png</normaloff>icons/download-folder.png</iconset>
+      <normaloff>../icons/disk.png</normaloff>../icons/disk.png</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="programExec">
@@ -179,7 +185,7 @@
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>icons/play.png</normaloff>icons/play.png</iconset>
+      <normaloff>../icons/play.png</normaloff>../icons/play.png</iconset>
     </property>
    </widget>
    <widget class="QLineEdit" name="fileNameLabel">
@@ -190,6 +196,26 @@
       <width>341</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="defineMapBtn">
+    <property name="geometry">
+     <rect>
+      <x>54</x>
+      <y>470</y>
+      <width>91</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Define Map</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../icons/map.png</normaloff>../icons/map.png</iconset>
     </property>
    </widget>
   </widget>

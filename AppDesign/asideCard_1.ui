@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>274</width>
+    <height>174</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>20</y>
+     <width>101</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel{
+	color: #262626
+}</string>
+   </property>
+   <property name="text">
+    <string>0123456789</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>38</width>
+     <height>38</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+	background-color: #313743;
+	border-radius: 6px;
+}
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>../icons/bolt-solid-full.svg</normaloff>../icons/bolt-solid-full.svg</iconset>
+   </property>
+  </widget>
+  <widget class="QFrame" name="frame">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>20</y>
+     <width>6</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QFrame {
+    background-color: #3AC2A5;
+	width: 6px;
+	border-radius: 2px;
+}
+</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>60</y>
+     <width>51</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel{
+	color: #262626;
+}</string>
+   </property>
+   <property name="text">
+    <string>PR101</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>60</y>
+     <width>51</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel{
+	color: #262626;
+}</string>
+   </property>
+   <property name="text">
+    <string>PR102</string>
+   </property>
+  </widget>
+  <widget class="QSlider" name="horizontalSlider">
+   <property name="geometry">
+    <rect>
+     <x>59</x>
+     <y>80</y>
+     <width>141</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QSlider:horizontal {
+    /* Add space on the sides for the large handle to be fully visible at min/max positions */
+    padding: 0 10px;
+}
+
+QSlider::groove:horizontal {
+    /* --- TRACK (GROOVE) STYLING --- */
+    
+    /* Uniform light gray color for the entire track as shown in the image */
+    background: #e0e0e0;
+    
+    /* Set the track height */
+    height: 8px;
+    
+    /* Fully rounded ends */
+    border-radius: 4px;
+    
+    /* Prevent borders from showing */
+    border: none;
+}
+
+/* Ensure the sub-page (filled portion) and add-page (unfilled portion) match the groove */
+QSlider::sub-page:horizontal,
+QSlider::add-page:horizontal {
+    background: #e0e0e0;
+    border-radius: 4px;
+}
+
+QSlider::handle:horizontal {
+    /* --- HANDLE (THUMB) STYLING --- */
+    
+    /* Dimensions: 20px diameter circle */
+    width: 20px;
+    height: 20px;
+    
+    /* Center the 20px handle vertically on the 8px groove: (20 - 8) / 2 = 6px negative margin */
+    margin: -8px 0;
+    
+    /* Make it a perfect circle */
+    border-radius: 10px;
+    
+    /* White center fill */
+    background: white;
+    
+    /* The bright purple ring/outline */
+    border: 3px solid #7e55ff;
+    
+    /* The crucial glow effect using box-shadow */
+    box-shadow: 0 0 8px rgba(126, 85, 255, 0.6);
+}
+
+/* Optional: Subtle changes when the user hovers over the handle */
+QSlider::handle:horizontal:hover {
+    border-color: #6a3dff; /* Slightly darker purple on hover */
+    box-shadow: 0 0 10px rgba(106, 61, 255, 0.8); /* Stronger glow on hover */
+}
+</string>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QFrame" name="frame_2">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>20</y>
+     <width>6</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QFrame {
+    background-color: #3AC2A5;
+	width: 6px;
+	border-radius: 2px;
+}
+</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+  </widget>
+  <widget class="QFrame" name="frame_3">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>20</y>
+     <width>6</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QFrame {
+    background-color: #3AC2A5;
+	width: 6px;
+	border-radius: 2px;
+}
+</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>80</y>
+     <width>41</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>50</weight>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel{
+	color: #808080;
+}</string>
+   </property>
+   <property name="text">
+    <string>On Ope</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>80</y>
+     <width>81</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>50</weight>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel{
+	color: #808080;
+}</string>
+   </property>
+   <property name="text">
+    <string>24 %</string>
+   </property>
+  </widget>
+  <widget class="QFrame" name="frame_4">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>130</y>
+     <width>92</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QFrame{
+	border: 1px solid #808080;
+	border-radius: 4px;
+}</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Plain</enum>
+   </property>
+   <widget class="QProgressBar" name="progressBar">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>8</y>
+      <width>71</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="value">
+     <number>24</number>
+    </property>
+   </widget>
+  </widget>
+  <widget class="Line" name="line">
+   <property name="geometry">
+    <rect>
+     <x>-3</x>
+     <y>110</y>
+     <width>281</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">Line{
+	color: #808080;
+}</string>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Plain</enum>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>130</y>
+     <width>91</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+	border-radius: 4px;
+	border: 1px solid #808080;
+}
+</string>
+   </property>
+   <property name="text">
+    <string>AGV-101</string>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>../icons/show.png</normaloff>../icons/show.png</iconset>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

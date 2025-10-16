@@ -3,7 +3,8 @@ from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QGraphicsView, QGrap
 from PyQt5.QtWidgets import QVBoxLayout, QPushButton, QFrame
 from PyQt5.QtCore import QTimer, QRectF, Qt, QObject, pyqtSignal
 from PyQt5.QtGui import QBrush, QTextCursor, QColor
-from mainScreen import Ui_MainWindow
+# from mainScreen import Ui_MainWindow
+from mainScreen2 import Ui_MainWindow
 
 import sys
 import random
@@ -18,6 +19,7 @@ from Models.AdapterModel import NetworkAdapterModel
 from Models.TableModel import RobotTableModel
 from Models.ClientModel import ClientModel
 from Models.ProgramModel import ProgramModel
+from Models.MapModel import MapModel
 # from Models.RobotNodeModel import RobotNodeModel
 # from Models.SubscriberModel import SubscriberModel
 
@@ -159,24 +161,27 @@ class window(QtWidgets.QMainWindow):
         # self.sim = SwarmSimulation()
         # self.ui.SwarmView.setScene(self.sim.scene)
 
-        self.swarm = SwarmPlotter(self.ui)
-        self.logger = TerminalLogger(self.ui.TerminalDisplay, max_lines=100)
-        self.programModel = ProgramModel(self.ui)
+        # self.swarm = SwarmPlotter(self.ui)
+        # self.logger = TerminalLogger(self.ui.TerminalDisplay, max_lines=100)
+        # self.programModel = ProgramModel(self.ui)
         
         self.clientModel = ClientModel()
+        self.mapModel = MapModel()
 
-        self.ui.AddNodeButton.clicked.connect(lambda: self.clientModel.CreateClient())
-        self.ui.DelNodeButton.clicked.connect(lambda: self.clientModel.DeleteClient())
-        self.ui.InspectButton.clicked.connect(lambda: self.clientModel.InspectClient(self.net_thread))
-        self.ui.AccessButton.clicked.connect(lambda: self.clientModel.TakeoverClient(self.net_thread))
+        # self.ui.AddNodeButton.clicked.connect(lambda: self.clientModel.CreateClient())
+        # self.ui.DelNodeButton.clicked.connect(lambda: self.clientModel.DeleteClient())
+        # self.ui.InspectButton.clicked.connect(lambda: self.clientModel.InspectClient(self.net_thread))
+        # self.ui.AccessButton.clicked.connect(lambda: self.clientModel.TakeoverClient(self.net_thread))
 
-        self.ui.programLoad.clicked.connect(lambda: self.programModel.OpenFileDialog())
+        # self.ui.programLoad.clicked.connect(lambda: self.programModel.OpenFileDialog())
 
         self.net_thread = NetworkAdapterModel(self)
-        self.robot_table = RobotTableModel(self)
-        self.net_thread.subscribers.signal_clientAdded.connect(self.robot_table.ReadDatabase)
-        self.net_thread.subscribers.signal_clientRemoved.connect(self.robot_table.ReadDatabase)
-        self.clientModel.signal_clientUpdate.connect(self.robot_table.ReadDatabase)
+        # self.robot_table = RobotTableModel(self)
+        # self.net_thread.subscribers.signal_clientAdded.connect(self.robot_table.ReadDatabase)
+        # self.net_thread.subscribers.signal_clientRemoved.connect(self.robot_table.ReadDatabase)
+        # self.clientModel.signal_clientUpdate.connect(self.robot_table.ReadDatabase)
+
+        # self.ui.defineMapBtn.clicked.connect(self.mapModel.ShowMakerWindow)
     
         thread = threading.Thread(target=self.net_thread.RunServer, daemon=True)
         thread.start()
