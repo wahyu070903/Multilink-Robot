@@ -19,7 +19,6 @@ class Ui_asideCard(object):
         asideCard.setStyleSheet("#asideCard{\n"
 "    border: 1px solid #808080;\n"
 "    border-radius: 8px;\n"
-"    background-color: white;\n"
 "}")
         self.label = QtWidgets.QLabel(asideCard)
         self.label.setGeometry(QtCore.QRect(60, 20, 101, 16))

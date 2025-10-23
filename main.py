@@ -5,6 +5,9 @@ from PyQt5.QtCore import QTimer, QRectF, Qt, QObject, pyqtSignal
 from PyQt5.QtGui import QBrush, QTextCursor, QColor
 # from mainScreen import Ui_MainWindow
 from mainScreen2 import Ui_MainWindow
+from asideCardMission import Ui_asideCard
+from asideCardVehicle import Ui_asideCardVehicle
+from asideCardInspect import Ui_asideCardInspect
 
 import sys
 import random
@@ -119,9 +122,6 @@ class SwarmPlotter(QObject):
         body.translate(0, 0, 0.25)
         self.gl.addItem(body)
 
-
-
-
 class TerminalLogger(QObject):
     log_signal = pyqtSignal(str, str)  # (message, color)
 
@@ -152,12 +152,122 @@ class TerminalLogger(QObject):
 
         self.text_edit.moveCursor(QTextCursor.End)
 
+class AsideCard(QtWidgets.QWidget):
+    def __init__(self):
+        super().__init__()
+        self.ui = Ui_asideCard()
+        self.ui.setupUi(self)
+
+class AsideCardVehicle(QtWidgets.QWidget):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.ui = Ui_asideCardVehicle()
+        self.ui.setupUi(self)
+
+class AsideCardInspect(QtWidgets.QWidget):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.ui = Ui_asideCardInspect()
+        self.ui.setupUi(self)
+
+        self.ui.pbCloseInspect.clicked.connect(self.close)
+
+class AsideWindow:
+    def __init__(self, ui):
+        self.ui = ui
+        self.aside_container = self.ui.scrollAreaWidgetContents
+        self.init_disp = False
+        self.aside_layout = QtWidgets.QVBoxLayout()
+        self.aside_layout.setContentsMargins(0, 0, 0, 0)
+        self.aside_layout.setSpacing(8)
+        self.aside_layout.setAlignment(Qt.AlignTop)
+
+        self.aside_container.setLayout(self.aside_layout)
+
+    def changeToMission(self):
+        self.asidePanelChange('mission')
+
+    def changeToVehicle(self):
+        self.asidePanelChange('vehicle')
+
+    def changeToLogs(self):
+        self.asidePanelChange('logs')
+
+    def asidePanelChange(self, option: str):
+        for i in reversed(range(self.aside_layout.count())):
+            widget = self.aside_layout.itemAt(i).widget()
+            if widget:
+                widget.setParent(None)
+
+        if option == "mission":
+            for _ in range(5):
+                card = AsideCard()
+                h_layout = QtWidgets.QHBoxLayout()
+                h_layout.addStretch()
+                h_layout.addWidget(card)
+                h_layout.addStretch()
+                container = QtWidgets.QWidget()
+                container.setLayout(h_layout)
+                self.aside_layout.addWidget(container)
+
+        elif option == "vehicle":
+            for _ in range(10):
+                card = AsideCardVehicle()
+                card.ui.pbInspect.clicked.connect(lambda _, c=card: self.inspectVehicle(c))
+                h_layout = QtWidgets.QHBoxLayout()
+                h_layout.addStretch()
+                h_layout.addWidget(card)    
+                h_layout.addStretch()
+                container = QtWidgets.QWidget()
+                container.setLayout(h_layout)
+                self.aside_layout.addWidget(container)
+
+        elif option == "logs":
+            placeholder = QtWidgets.QLabel("No logs yet.")
+            placeholder.setAlignment(Qt.AlignCenter)
+            self.aside_layout.addWidget(placeholder)
+
+    def show(self):
+        self.aside_container.show()
+        if not self.init_disp:
+            self.changeToVehicle()
+            self.init_disp = True
+
+    def inspectVehicle(self, card: AsideCardVehicle):
+        asideContainer = self.ui.rightAside 
+
+        for i in reversed(range(asideContainer.layout().count())):
+            widget = asideContainer.layout().itemAt(i).widget()
+            if widget:
+                widget.setParent(None)
+
+        inspect_card = AsideCardInspect()
+        asideContainer.layout().addWidget(inspect_card)
+
+
+    
 class window(QtWidgets.QMainWindow):
     def __init__(self):
-        super(window, self) .__init__()
+        super(window, self).__init__()
+
+        self.net_thread = NetworkAdapterModel(self)
+        # self.net_thread.subscribers.signal_clientAdded.connect(self.robot_table.ReadDatabase)
+        # self.net_thread.subscribers.signal_clientRemoved.connect(self.robot_table.ReadDatabase)
+
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        
+        self.aside_window = AsideWindow(self.ui)
+        self.aside_window.show()
+
+        # Button aside
+        self.aside_button_mission = self.ui.aside_btn_missions
+        self.aside_button_vehicle = self.ui.aside_btn_vehicles
+        self.aside_button_logs = self.ui.aside_btn_logs
+
+        self.aside_button_mission.clicked.connect(self.aside_window.changeToMission)
+        self.aside_button_vehicle.clicked.connect(self.aside_window.changeToVehicle)
+        self.aside_button_logs.clicked.connect(self.aside_window.changeToLogs)
+
         # self.sim = SwarmSimulation()
         # self.ui.SwarmView.setScene(self.sim.scene)
 
@@ -175,18 +285,14 @@ class window(QtWidgets.QMainWindow):
 
         # self.ui.programLoad.clicked.connect(lambda: self.programModel.OpenFileDialog())
 
-        self.net_thread = NetworkAdapterModel(self)
         # self.robot_table = RobotTableModel(self)
-        # self.net_thread.subscribers.signal_clientAdded.connect(self.robot_table.ReadDatabase)
-        # self.net_thread.subscribers.signal_clientRemoved.connect(self.robot_table.ReadDatabase)
         # self.clientModel.signal_clientUpdate.connect(self.robot_table.ReadDatabase)
 
         # self.ui.defineMapBtn.clicked.connect(self.mapModel.ShowMakerWindow)
     
         thread = threading.Thread(target=self.net_thread.RunServer, daemon=True)
         thread.start()
-        
-
+    
 def create_app():
     app = QtWidgets.QApplication(sys.argv)
     win = window()

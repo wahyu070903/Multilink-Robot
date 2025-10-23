@@ -14,8 +14,11 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1221, 1042)
+        MainWindow.resize(1221, 696)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.centralwidget.setStyleSheet("#centralwidget{\n"
+"    background-color: white;\n"
+"}")
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
         self.verticalLayoutWidget.setGeometry(QtCore.QRect(0, 10, 61, 241))
@@ -111,20 +114,133 @@ class Ui_MainWindow(object):
         self.pushButton.setIcon(icon)
         self.pushButton.setObjectName("pushButton")
         self.verticalLayout_2.addWidget(self.pushButton, 0, QtCore.Qt.AlignHCenter|QtCore.Qt.AlignTop)
-        self.verticalLayoutWidget_2 = QtWidgets.QWidget(self.centralwidget)
-        self.verticalLayoutWidget_2.setGeometry(QtCore.QRect(69, 9, 211, 531))
-        self.verticalLayoutWidget_2.setObjectName("verticalLayoutWidget_2")
-        self.vLayout_aside = QtWidgets.QVBoxLayout(self.verticalLayoutWidget_2)
-        self.vLayout_aside.setContentsMargins(0, 0, 0, 0)
-        self.vLayout_aside.setObjectName("vLayout_aside")
+        self.aside_container = QtWidgets.QWidget(self.centralwidget)
+        self.aside_container.setGeometry(QtCore.QRect(70, 10, 341, 651))
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Maximum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.aside_container.sizePolicy().hasHeightForWidth())
+        self.aside_container.setSizePolicy(sizePolicy)
+        self.aside_container.setStyleSheet("#aside_container{\n"
+"    background-color: #f5f5f5;\n"
+"    border-radius: 6px;\n"
+"}")
+        self.aside_container.setObjectName("aside_container")
+        self.aside_button = QtWidgets.QWidget(self.aside_container)
+        self.aside_button.setGeometry(QtCore.QRect(10, 10, 321, 51))
+        self.aside_button.setObjectName("aside_button")
+        self.aside_btn_missions = QtWidgets.QPushButton(self.aside_button)
+        self.aside_btn_missions.setGeometry(QtCore.QRect(120, 10, 75, 31))
+        font = QtGui.QFont()
+        font.setBold(True)
+        font.setWeight(75)
+        self.aside_btn_missions.setFont(font)
+        self.aside_btn_missions.setStyleSheet("QPushButton{\n"
+"    border-radius: 4px;\n"
+"    border: 1px solid #808080;\n"
+"    color: #808080;\n"
+"}\n"
+"\n"
+"QPushButton:hover{\n"
+"    color: white;\n"
+"    background-color: #808080;\n"
+"}")
+        self.aside_btn_missions.setObjectName("aside_btn_missions")
+        self.aside_btn_vehicles = QtWidgets.QPushButton(self.aside_button)
+        self.aside_btn_vehicles.setGeometry(QtCore.QRect(10, 10, 75, 31))
+        font = QtGui.QFont()
+        font.setBold(True)
+        font.setWeight(75)
+        self.aside_btn_vehicles.setFont(font)
+        self.aside_btn_vehicles.setStyleSheet("QPushButton{\n"
+"    border-radius: 4px;\n"
+"    border: 1px solid #808080;\n"
+"    color: #808080;\n"
+"}\n"
+"\n"
+"QPushButton:hover{\n"
+"    color: white;\n"
+"    background-color: #808080;\n"
+"}")
+        self.aside_btn_vehicles.setObjectName("aside_btn_vehicles")
+        self.aside_btn_logs = QtWidgets.QPushButton(self.aside_button)
+        self.aside_btn_logs.setGeometry(QtCore.QRect(236, 10, 75, 31))
+        font = QtGui.QFont()
+        font.setBold(True)
+        font.setWeight(75)
+        self.aside_btn_logs.setFont(font)
+        self.aside_btn_logs.setStyleSheet("QPushButton{\n"
+"    border-radius: 4px;\n"
+"    border: 1px solid #808080;\n"
+"    color: #808080;\n"
+"}\n"
+"\n"
+"QPushButton:hover{\n"
+"    color: white;\n"
+"    background-color: #808080;\n"
+"}")
+        self.aside_btn_logs.setObjectName("aside_btn_logs")
+        self.aside_content = QtWidgets.QWidget(self.aside_container)
+        self.aside_content.setGeometry(QtCore.QRect(9, 69, 321, 571))
+        self.aside_content.setStyleSheet("#aside_content{\n"
+"    background-color: transparent;\n"
+"}")
+        self.aside_content.setObjectName("aside_content")
+        self.asideScrollArea = QtWidgets.QScrollArea(self.aside_content)
+        self.asideScrollArea.setGeometry(QtCore.QRect(0, 0, 321, 571))
+        self.asideScrollArea.setStyleSheet("#asideScrollArea {\n"
+"    border: none;\n"
+"    background: transparent;\n"
+"}\n"
+"\n"
+"#asideScrollArea QWidget {\n"
+"    background: transparent;\n"
+"}\n"
+"")
+        self.asideScrollArea.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.asideScrollArea.setWidgetResizable(True)
+        self.asideScrollArea.setObjectName("asideScrollArea")
+        self.scrollAreaWidgetContents = QtWidgets.QWidget()
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 321, 571))
+        self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
+        self.asideScrollArea.setWidget(self.scrollAreaWidgetContents)
+        self.frame = QtWidgets.QFrame(self.centralwidget)
+        self.frame.setGeometry(QtCore.QRect(419, 9, 791, 651))
+        self.frame.setLayoutDirection(QtCore.Qt.RightToLeft)
+        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame.setObjectName("frame")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.frame)
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.rightAside = QtWidgets.QFrame(self.frame)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.rightAside.sizePolicy().hasHeightForWidth())
+        self.rightAside.setSizePolicy(sizePolicy)
+        self.rightAside.setLayoutDirection(QtCore.Qt.RightToLeft)
+        self.rightAside.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.rightAside.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.rightAside.setObjectName("rightAside")
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.rightAside)
+        self.verticalLayout.setSizeConstraint(QtWidgets.QLayout.SetDefaultConstraint)
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.horizontalLayout.addWidget(self.rightAside)
+        self.frame_2 = QtWidgets.QFrame(self.frame)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.frame_2.sizePolicy().hasHeightForWidth())
+        self.frame_2.setSizePolicy(sizePolicy)
+        self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_2.setObjectName("frame_2")
+        self.horizontalLayout.addWidget(self.frame_2)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1221, 21))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
-        self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -132,6 +248,9 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.aside_btn_missions.setText(_translate("MainWindow", "Missions"))
+        self.aside_btn_vehicles.setText(_translate("MainWindow", "Vehicles"))
+        self.aside_btn_logs.setText(_translate("MainWindow", "Logs"))
 
 
 if __name__ == "__main__":
